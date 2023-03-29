@@ -16,6 +16,8 @@ import com.portfolio.entity.User;
 import com.portfolio.payload.UserDto;
 import com.portfolio.service.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -24,13 +26,13 @@ public class UserController {
 	UserService userService;
 	
 @GetMapping("getuser")
-public ResponseEntity<UserDto> getUser(@RequestParam("id") Integer id)
+public ResponseEntity<UserDto> getUser( @RequestParam("id") Integer id)
 {
 	return  new ResponseEntity<UserDto>( userService.getUserById(id) , HttpStatus.OK);
 }
 
 @PostMapping("create")
-public ResponseEntity<UserDto>  createUser(@RequestBody UserDto userDto)
+public ResponseEntity<UserDto>  createUser(  @Valid @RequestBody UserDto userDto)
 {
 		return  new ResponseEntity<UserDto>(userService.createUser(userDto) , HttpStatus.CREATED);
 }
