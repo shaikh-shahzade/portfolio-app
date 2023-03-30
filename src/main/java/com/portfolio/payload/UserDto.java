@@ -1,6 +1,11 @@
 package com.portfolio.payload;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.portfolio.entity.Project;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -26,4 +31,5 @@ public class UserDto {
 	@Size(min = 5 , message="Password cannnot be less than 5 characters")
 	private String password;
 	private String about;
+	
 }

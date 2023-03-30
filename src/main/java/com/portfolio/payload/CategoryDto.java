@@ -1,5 +1,10 @@
 package com.portfolio.payload;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.portfolio.entity.Project;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
