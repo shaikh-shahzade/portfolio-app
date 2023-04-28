@@ -35,9 +35,11 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<List<ProjectDto>> getAllProject()
+	public ResponseEntity<List<ProjectDto>> getAllProject(
+			@RequestParam(name = "page" , required = false , defaultValue = "1") int page 
+			)
 	{
-		return projectSevice.getAllProject() ; 
+		return projectSevice.getAllProject(page-1) ; 
 	}
 	
 	@PostMapping("/create/user/{userId}/category/{categoryId}")

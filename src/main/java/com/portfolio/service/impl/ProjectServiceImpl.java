@@ -1,10 +1,14 @@
 package com.portfolio.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -44,8 +48,13 @@ public class ProjectServiceImpl implements ProjectSevice{
 	}
 
 	@Override
-	public ResponseEntity<List<ProjectDto>> getAllProject() {
-		List<ProjectDto> projectdtos = projectRepo.findAll().stream()
+	public ResponseEntity<List<ProjectDto>> getAllProject(int page) {
+	
+		if(page<0)
+			return new ResponseEntity<List<ProjectDto>>(new ArrayList<ProjectDto>() ,HttpStatus.BAD_REQUEST);
+		Pageable pageable = PageRequest.of(page, 10);
+		
+		List<ProjectDto> projectdtos = projectRepo.findAll(pageable).stream()
 				.map(project -> pToDto(project) ).collect(Collectors.toList());
 		return new ResponseEntity<List<ProjectDto>>(projectdtos,HttpStatus.OK);
 	}
