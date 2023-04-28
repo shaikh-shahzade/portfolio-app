@@ -36,10 +36,13 @@ public class ProjectController {
 	
 	@GetMapping("/")
 	public ResponseEntity<List<ProjectDto>> getAllProject(
-			@RequestParam(name = "page" , required = false , defaultValue = "1") int page 
+			@RequestParam(name = "page" , required = false , defaultValue = "1") int page ,
+			@RequestParam(name = "sort" , required = false , defaultValue = "asc") String sort,
+			@RequestParam(name = "sortby" , required = false , defaultValue = "id") String sortby
+			
 			)
 	{
-		return projectSevice.getAllProject(page-1) ; 
+		return projectSevice.getAllProject(page-1 , sort  , sortby) ; 
 	}
 	
 	@PostMapping("/create/user/{userId}/category/{categoryId}")

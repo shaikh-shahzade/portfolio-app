@@ -10,7 +10,7 @@ public interface ProjectSevice {
 
 	public ResponseEntity<ProjectDto> getProject(int id);
 	
-	public ResponseEntity<List<ProjectDto>> getAllProject(int page) ;
+	public ResponseEntity<List<ProjectDto>> getAllProject(int page ,  String sort , String sortby) ;
 	
 	public ResponseEntity<ProjectDto> createProject(ProjectDto projectDto , Integer userId , Integer categoryId);
 	

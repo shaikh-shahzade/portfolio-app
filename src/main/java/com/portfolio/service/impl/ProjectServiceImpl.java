@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -48,11 +49,12 @@ public class ProjectServiceImpl implements ProjectSevice{
 	}
 
 	@Override
-	public ResponseEntity<List<ProjectDto>> getAllProject(int page) {
+	public ResponseEntity<List<ProjectDto>> getAllProject(int page , String sort , String sortby) {
 	
+		
 		if(page<0)
 			return new ResponseEntity<List<ProjectDto>>(new ArrayList<ProjectDto>() ,HttpStatus.BAD_REQUEST);
-		Pageable pageable = PageRequest.of(page, 10);
+		Pageable pageable = PageRequest.of(page, 10,Direction.fromString(sort) , sortby  );
 		
 		List<ProjectDto> projectdtos = projectRepo.findAll(pageable).stream()
 				.map(project -> pToDto(project) ).collect(Collectors.toList());
