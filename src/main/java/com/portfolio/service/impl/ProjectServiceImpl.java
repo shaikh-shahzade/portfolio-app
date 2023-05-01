@@ -50,8 +50,6 @@ public class ProjectServiceImpl implements ProjectSevice{
 
 	@Override
 	public ResponseEntity<List<ProjectDto>> getAllProject(int page , String sort , String sortby) {
-	
-		
 		if(page<0)
 			return new ResponseEntity<List<ProjectDto>>(new ArrayList<ProjectDto>() ,HttpStatus.BAD_REQUEST);
 		Pageable pageable = PageRequest.of(page, 10,Direction.fromString(sort) , sortby  );
@@ -61,6 +59,19 @@ public class ProjectServiceImpl implements ProjectSevice{
 		return new ResponseEntity<List<ProjectDto>>(projectdtos,HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<List<ProjectDto>> searchProject(int page, String key) {
+		// TODO Auto-generated method stub
+		if(page<0)
+			return new ResponseEntity<List<ProjectDto>>(new ArrayList<ProjectDto>() ,HttpStatus.BAD_REQUEST);
+		Pageable pageable = PageRequest.of(page, 10 );
+		
+		List<ProjectDto> projectdtos = projectRepo.findByTitleContaining(key,pageable).stream()
+				.map(project -> pToDto(project) ).collect(Collectors.toList());
+		return new ResponseEntity<List<ProjectDto>>(projectdtos,HttpStatus.OK);
+
+	}
+	
 	@Override
 	public ResponseEntity<ProjectDto> createProject(ProjectDto projectDto , Integer userId  , Integer categoryId) {
 		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "ID", userId));
@@ -103,4 +114,6 @@ public class ProjectServiceImpl implements ProjectSevice{
 	{
 		return modelMapper.map(projectDto,Project.class);
 	}
+
+
 }

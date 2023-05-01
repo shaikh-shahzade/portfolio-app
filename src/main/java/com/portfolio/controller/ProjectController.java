@@ -45,6 +45,16 @@ public class ProjectController {
 		return projectSevice.getAllProject(page-1 , sort  , sortby) ; 
 	}
 	
+	@GetMapping("search")
+	public ResponseEntity<List<ProjectDto>> searchProject(
+			@RequestParam(name = "page" , required = false , defaultValue = "1") int page ,
+			@RequestParam(name = "key" , required = true) String key
+			
+			)
+	{
+		return projectSevice.searchProject(page-1 ,key); 
+	}
+	
 	@PostMapping("/create/user/{userId}/category/{categoryId}")
 	public ResponseEntity<ProjectDto> createProject(
 			@Valid @RequestBody ProjectDto projectDto,

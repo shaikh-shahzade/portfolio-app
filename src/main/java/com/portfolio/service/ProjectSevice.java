@@ -17,5 +17,7 @@ public interface ProjectSevice {
 	public ResponseEntity<ProjectDto> updateProject(int id , ProjectDto projectDto  , Integer userId , Integer categoryId);
 	
 	public ResponseEntity<ProjectDto> deleteProject(int id);
+
+	public ResponseEntity<List<ProjectDto>> searchProject(int page, String key);
 	
 }

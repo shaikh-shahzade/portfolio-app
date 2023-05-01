@@ -10,4 +10,5 @@ import com.portfolio.entity.Project;
 public interface ProjectRepo extends JpaRepository<Project, Integer> {
 
 	public Page<Project> findAll(Pageable pageable);
+	public Page<Project> findByTitleContaining(String title , Pageable pageable);
 }
