@@ -12,10 +12,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.portfolio.config.jwt.JwtAuthenticationFilter;
 
 @Configuration
+@EnableWebMvc
 public class SecuirtyConfig {
 
 	@Autowired
@@ -23,12 +25,17 @@ public class SecuirtyConfig {
 	@Autowired
 	AuthenticationEntryPoint authenticationEntryPoint;
 	
+	String publicURLs[] = {"/user/create" , "/user/login/v2/auth" , 
+			"/swagger-resources/**",
+	        "/swagger-ui/**",
+	        "/v3/api-docs",
+	        "/webjars/**" , "/v2/api-docs"};
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception
 	{
 		httpSecurity.csrf().disable()
 				.authorizeHttpRequests()
-				.requestMatchers("/user/create" , "/user/login/v2/auth")
+				.requestMatchers(publicURLs)
 				.permitAll()
 				.anyRequest()
 				.authenticated()
