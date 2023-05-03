@@ -1,5 +1,7 @@
 package com.portfolio.config;
 
+import org.springdoc.core.configuration.SpringDocConfiguration;
+import org.springdoc.webmvc.core.configuration.SpringDocWebMvcConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +19,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.portfolio.config.jwt.JwtAuthenticationFilter;
 
 @Configuration
-@EnableWebMvc
 public class SecuirtyConfig {
 
 	@Autowired
@@ -25,10 +26,11 @@ public class SecuirtyConfig {
 	@Autowired
 	AuthenticationEntryPoint authenticationEntryPoint;
 	
-	String publicURLs[] = {"/user/create" , "/user/login/v2/auth" , 
+	String publicURLs[] = { "/**","**","/user/create" , "/user/login/v2/auth" , 
 			"/swagger-resources/**",
-	        "/swagger-ui/**",
-	        "/v3/api-docs",
+	        "/swagger-ui/**","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
+	        "/v3/api-docs","/context-path/**","/context-path/swagger-ui.html",
+	        "/context-path/v3/api-docs",
 	        "/webjars/**" , "/v2/api-docs"};
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception

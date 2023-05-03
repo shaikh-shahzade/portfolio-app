@@ -38,7 +38,7 @@ public ResponseEntity<List<UserDto>> getAllUsers()
 
 
 @GetMapping("/{id}")
-public ResponseEntity<UserDto> getUser( @PathVariable("id") Integer id)
+public ResponseEntity<UserDto> getUser( @PathVariable Integer id)
 {
 	return   userService.getUserById(id);
 }
@@ -46,7 +46,7 @@ public ResponseEntity<UserDto> getUser( @PathVariable("id") Integer id)
 @PostMapping("/create")
 public ResponseEntity<UserDto>  createUser(  
 		@Valid @RequestBody UserDto userDto,
-		@RequestParam(  value = "role" , defaultValue = "Normal", required = false) String role
+		@RequestParam(defaultValue = "Normal", required = false) String role
 		)
 {
 		return  userService.createUser(userDto , role);
@@ -55,7 +55,7 @@ public ResponseEntity<UserDto>  createUser(
 @PutMapping("/update/{id}")
 public ResponseEntity<UserDto> updateUsers(
 		@Valid @RequestBody UserDto userDto ,
-		@PathVariable("id") Integer id 
+		@PathVariable Integer id 
 		)
 {
 	return   userService.updateUser(id , userDto);
@@ -63,7 +63,7 @@ public ResponseEntity<UserDto> updateUsers(
 
 
 @DeleteMapping("/delete/{id}")
-public ResponseEntity<UserDto> removeUsers( @PathVariable("id") Integer id)
+public ResponseEntity<UserDto> removeUsers( @PathVariable Integer id)
 {
 	return   userService.deleteUser(id);
 }
