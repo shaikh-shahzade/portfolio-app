@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.portfolio.payload.ProjectDto;
 import com.portfolio.service.ProjectSevice;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 
@@ -28,6 +33,16 @@ public class ProjectController {
 	@Autowired
 	ProjectSevice projectSevice;
 	
+	@Operation(summary = "Get a project by its Id")
+	@ApiResponses(value = { 
+		 
+			@ApiResponse(responseCode = "200", description = "Found the project", 
+			    content = { @Content(mediaType = "application/json", 
+			      schema = @Schema(implementation = ProjectDto.class)) }),
+			  @ApiResponse(responseCode = "400", description = "Invalid id supplied", 
+			    content = @Content), 
+			  @ApiResponse(responseCode = "404" , description = "Project not found", 
+			    content = @Content) })
 	@GetMapping("/{id}")
 	public ResponseEntity<ProjectDto> getProject(@PathVariable int id)
 	{
