@@ -1,11 +1,9 @@
 package com.portfolio.config.jwt;
 
-import java.io.Serializable;
-import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.HashMap;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -21,7 +19,7 @@ public class JwtTokenhelper {
 
 	private static final long serialVersionUID = -2550185165626007488L;
 
-	
+
 
 	//retrieve username from jwt token
 	public String getUsernameFromToken(String token) {
@@ -58,7 +56,7 @@ public class JwtTokenhelper {
 	//1. Define  claims of the token, like Issuer, Expiration, Subject, and the ID
 	//2. Sign the JWT using the HS512 algorithm and secret key.
 	//3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
-	//   compaction of the JWT to a URL-safe string 
+	//   compaction of the JWT to a URL-safe string
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
 
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
@@ -71,5 +69,5 @@ public class JwtTokenhelper {
 		final String username = getUsernameFromToken(token);
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
-	  
+
 }

@@ -1,10 +1,8 @@
 package com.portfolio.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.portfolio.entity.User;
 import com.portfolio.payload.UserDto;
 import com.portfolio.service.UserService;
 
@@ -44,7 +41,7 @@ public ResponseEntity<UserDto> getUser( @PathVariable Integer id)
 }
 
 @PostMapping("/create")
-public ResponseEntity<UserDto>  createUser(  
+public ResponseEntity<UserDto>  createUser(
 		@Valid @RequestBody UserDto userDto,
 		@RequestParam(defaultValue = "Normal", required = false) String role
 		)
@@ -55,7 +52,7 @@ public ResponseEntity<UserDto>  createUser(
 @PutMapping("/update/{id}")
 public ResponseEntity<UserDto> updateUsers(
 		@Valid @RequestBody UserDto userDto ,
-		@PathVariable Integer id 
+		@PathVariable Integer id
 		)
 {
 	return   userService.updateUser(id , userDto);

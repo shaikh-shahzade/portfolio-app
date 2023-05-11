@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,18 +19,18 @@ public class GlobalExceptionHanlder {
 	public ResponseEntity<ApiResponse> resourceNotFoundException(ResourceNotFoundException ex)
 	{
 		ApiResponse res = new ApiResponse(ex.getMessage() , false);
-		return new ResponseEntity<ApiResponse>(res , HttpStatus.NOT_FOUND);
-		
+		return new ResponseEntity<>(res , HttpStatus.NOT_FOUND);
+
 	}
-	
+
 	@ExceptionHandler(value = MethodArgumentNotValidException.class)
 	public ResponseEntity<Map<String , String>> notValid(MethodArgumentNotValidException ex)
 	{
-		Map<String, String> map = new HashMap<String,String>();
+		Map<String, String> map = new HashMap<>();
 		ex.getBindingResult().getAllErrors().forEach((error)->{
 			map.put(((FieldError)error).getField(), error.getDefaultMessage());
 		});
-		return new ResponseEntity<Map<String,String>>(map , HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(map , HttpStatus.BAD_REQUEST);
 	}
-	
+
 }

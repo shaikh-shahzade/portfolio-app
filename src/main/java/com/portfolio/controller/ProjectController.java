@@ -24,7 +24,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("project")
@@ -32,70 +31,70 @@ public class ProjectController {
 
 	@Autowired
 	ProjectSevice projectSevice;
-	
+
 	@Operation(summary = "Get a project by its Id")
-	@ApiResponses(value = { 
-		 
-			@ApiResponse(responseCode = "200", description = "Found the project", 
-			    content = { @Content(mediaType = "application/json", 
+	@ApiResponses(value = {
+
+			@ApiResponse(responseCode = "200", description = "Found the project",
+			    content = { @Content(mediaType = "application/json",
 			      schema = @Schema(implementation = ProjectDto.class)) }),
-			  @ApiResponse(responseCode = "400", description = "Invalid id supplied", 
-			    content = @Content), 
-			  @ApiResponse(responseCode = "404" , description = "Project not found", 
+			  @ApiResponse(responseCode = "400", description = "Invalid id supplied",
+			    content = @Content),
+			  @ApiResponse(responseCode = "404" , description = "Project not found",
 			    content = @Content) })
 	@GetMapping("/{id}")
 	public ResponseEntity<ProjectDto> getProject(@PathVariable int id)
 	{
-		return projectSevice.getProject(id) ; 
+		return projectSevice.getProject(id) ;
 	}
-	
+
 	@GetMapping("/")
 	public ResponseEntity<List<ProjectDto>> getAllProject(
 			@RequestParam(required = false , defaultValue = "1") int page ,
 			@RequestParam(required = false , defaultValue = "asc") String sort,
 			@RequestParam(required = false , defaultValue = "id") String sortby
-			
+
 			)
 	{
-		return projectSevice.getAllProject(page-1 , sort  , sortby) ; 
+		return projectSevice.getAllProject(page-1 , sort  , sortby) ;
 	}
-	
+
 	@GetMapping("search")
 	public ResponseEntity<List<ProjectDto>> searchProject(
 			@RequestParam(required = false , defaultValue = "1") int page ,
 			@RequestParam(required = true) String key
-			
+
 			)
 	{
-		return projectSevice.searchProject(page-1 ,key); 
+		return projectSevice.searchProject(page-1 ,key);
 	}
-	
+
 	@PostMapping("/create/user/{userId}/category/{categoryId}")
 	public ResponseEntity<ProjectDto> createProject(
 			@Valid @RequestBody ProjectDto projectDto,
 			@PathVariable Integer userId,
 			@PathVariable Integer categoryId
-			
+
 			)
 	{
-		return projectSevice.createProject(projectDto ,userId ,categoryId) ; 
+		return projectSevice.createProject(projectDto ,userId ,categoryId) ;
 	}
-	
+
 	@PutMapping("/update/{id}/user/{userId}/category/{categoryId}")
 	public ResponseEntity<ProjectDto> updateProject(
-			@Valid @RequestBody ProjectDto projectDto , 
+			@Valid @RequestBody ProjectDto projectDto ,
 			@PathVariable int id ,
 			@PathVariable Integer userId,
 			@PathVariable Integer categoryId
 			)
 	{
-		return projectSevice.updateProject(id , projectDto , userId , categoryId) ; 
+		return projectSevice.updateProject(id , projectDto , userId , categoryId) ;
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<ProjectDto> deleteProject(@PathVariable int id)
 	{
-		return projectSevice.deleteProject(id) ; 
+		return projectSevice.deleteProject(id) ;
 	}
-	
+
 }
